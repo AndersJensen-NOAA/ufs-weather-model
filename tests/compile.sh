@@ -61,9 +61,15 @@ case ${MACHINE_ID} in
     ;;
   *)
     # Activate lua environment for gaea c5
-    if [[ ${MACHINE_ID} == gaea ]]; then
+    if [[ ${MACHINE_ID} == gaeac5 ]]; then
       module reset
     fi
+    if [[ ${MACHINE_ID} == gaeac6 ]]; then
+      module reset
+    elif [[ ${MACHINE_ID} == hercules ]]; then
+      module purge
+    fi
+
     # Load fv3 module
     module use "${PATHTR}/modulefiles"
     modulefile="ufs_${MACHINE_ID}.${RT_COMPILER}"
@@ -93,15 +99,6 @@ set +ex
 SUITES=$(grep -Po "\-DCCPP_SUITES=\K[^ ]*" <<< "${MAKE_OPT}")
 export SUITES
 set -ex
-
-# Valid applications
-if [[ "${MAKE_OPT}" == *"-DAPP=S2S"* ]]; then
-    CMAKE_FLAGS+=" -DMOM6SOLO=ON"
-fi
-
-if [[ "${MAKE_OPT}" == *"-DAPP=NG-GODAS"* ]]; then
-    CMAKE_FLAGS+=" -DMOM6SOLO=ON"
-fi
 
 CMAKE_FLAGS=$(set -e; trim "${CMAKE_FLAGS}")
 echo "CMAKE_FLAGS = ${CMAKE_FLAGS}"
