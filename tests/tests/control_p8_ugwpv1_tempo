@@ -124,7 +124,7 @@ export CA_TRIGGER=.true.
 export NSPINUP=1
 export ISEED_CA=12345
 
-export IMP_PHYSICS=8
+export IMP_PHYSICS=88
 export LGFDLMPRAD=.false.
 export DO_SAT_ADJ=.false.
 export DNATS=0
